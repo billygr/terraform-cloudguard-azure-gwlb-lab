@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rg-serviceB" {
 # Create virtual network
 resource "azurerm_virtual_network" "vnet-serviceB" {
   name                = "vnet-serviceB"
-  address_space       = ["10.0.0.0/16"]
+  address_space       = ["10.0.2.0/23"]
   location            = azurerm_resource_group.rg-serviceB.location
   resource_group_name = azurerm_resource_group.rg-serviceB.name
 }
@@ -20,7 +20,7 @@ resource "azurerm_subnet" "snet-serviceB" {
   name                 = "snet-serviceB"
   resource_group_name  = azurerm_resource_group.rg-serviceB.name
   virtual_network_name = azurerm_virtual_network.vnet-serviceB.name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = ["10.0.2.0/24"]
 }
 
 # Create public IPs
@@ -91,7 +91,7 @@ resource "azurerm_storage_account" "st-serviceB" {
 
 # Create virtual machine
 resource "azurerm_linux_virtual_machine" "vm-serviceB" {
-  name                  = "vm-ServiceA"
+  name                  = "vm-ServiceB"
   location              = azurerm_resource_group.rg-serviceB.location
   resource_group_name   = azurerm_resource_group.rg-serviceB.name
   network_interface_ids = [azurerm_network_interface.nic-serviceB.id]

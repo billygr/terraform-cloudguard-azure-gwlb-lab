@@ -10,7 +10,7 @@ resource "azurerm_resource_group" "rg-serviceA" {
 # Create virtual network
 resource "azurerm_virtual_network" "vnet-serviceA" {
   name                = "vnet-serviceA"
-  address_space       = ["10.0.0.0/16"]
+  address_space       = ["10.0.0.0/23"]
   location            = azurerm_resource_group.rg-serviceA.location
   resource_group_name = azurerm_resource_group.rg-serviceA.name
 }
