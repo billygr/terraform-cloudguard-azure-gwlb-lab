@@ -170,7 +170,7 @@ resource "azurerm_virtual_machine" "vm-cpmgmt" {
     os_profile {
         computer_name   = "vm-cpmgmt"
 		admin_username  = "azureuser"
-        admin_password  = var.mgmt-admin-pwd
+        admin_password  = var.cpmgmt-admin-pwd
         custom_data     = file("customdata.sh")
     }
     os_profile_linux_config {
