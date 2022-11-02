@@ -1,10 +1,7 @@
-resource "random_pet" "rg_name-serviceA" {
-  prefix = var.resource_group_name_prefix
-}
-
+# Create resource group ServiceA
 resource "azurerm_resource_group" "rg-serviceA" {
-  location = var.resource_group_location
-  name     = random_pet.rg_name-serviceA.id
+  name      = "rg-serviceA"
+  location  = var.resource_group_location
 }
 
 # Create virtual network
