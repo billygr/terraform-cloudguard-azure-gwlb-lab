@@ -59,7 +59,8 @@ resource "azurerm_network_interface" "nic-serviceA" {
   ip_configuration {
     name                          = "my_nic_configuration"
     subnet_id                     = azurerm_subnet.snet-serviceA.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address            = "10.0.1.4"
+    private_ip_address_allocation = "Static"
     public_ip_address_id          = azurerm_public_ip.pip-serviceA.id
   }
 }
