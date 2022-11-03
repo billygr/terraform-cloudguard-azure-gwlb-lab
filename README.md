@@ -19,6 +19,9 @@ from/to cpmgmt to vmms scaleset<br>
 ## Manual configuration steps (will be automated in the feature)
 On your management server:
 
+If you are running a Standard D2 v2 (2 vcpus, 7 GiB memory) =<8GB of RAM you need to enable the api manually on cpmgmt: api start
+with bigger sizes it enables it automatically
+
 Install a license for 172.16.1.4<br>
 Install the CME script<br>
 
