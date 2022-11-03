@@ -25,7 +25,8 @@ resource "azurerm_public_ip" "pip-serviceA" {
   name                = "pip-serviceA"
   location            = azurerm_resource_group.rg-serviceA.location
   resource_group_name = azurerm_resource_group.rg-serviceA.name
-  allocation_method   = "Dynamic"
+  sku                 = "Standard"
+  allocation_method   = "Static"
 }
 
 # Create Network Security Group and rule
