@@ -121,3 +121,73 @@ resource "azurerm_linux_virtual_machine" "vm-jumpbox" {
     storage_account_uri = azurerm_storage_account.st-jumpbox.primary_blob_endpoint
   }
 }
+
+# Peering from/to cpmgmt
+resource "azurerm_virtual_network_peering" "vnet-jumpbox-to-vnet-cpmgmt" {
+  name = "vnet-jumpbox-to-vnet-cpmgmt"
+  resource_group_name = "rg-jumpbox"
+  virtual_network_name = azurerm_virtual_network.vnet-jumpbox.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-cpmgmt.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
+  depends_on = [azurerm_subnet.snet-cpmgmt,azurerm_subnet.snet-jumpbox]
+}
+
+resource "azurerm_virtual_network_peering" "vnet-cpmgmt-to-vnet-jumpbox" {
+  name = "vnet-cpmgmt-to-vnet-jumpbox"
+  resource_group_name = azurerm_resource_group.rg-cpmgmt.name
+  virtual_network_name = azurerm_virtual_network.vnet-cpmgmt.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-jumpbox.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
+  depends_on = [azurerm_subnet.snet-cpmgmt,azurerm_subnet.snet-jumpbox]
+}
+
+
+# Peering from/to serviceA
+resource "azurerm_virtual_network_peering" "vnet-jumpbox-to-vnet-serviceA" {
+  name = "vnet-jumpbox-to-vnet-serviceA"
+  resource_group_name = "rg-jumpbox"
+  virtual_network_name = azurerm_virtual_network.vnet-jumpbox.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-serviceA.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
+  depends_on = [azurerm_subnet.snet-serviceA,azurerm_subnet.snet-jumpbox]
+}
+
+resource "azurerm_virtual_network_peering" "vnet-ServiceA-to-vnet-jumpbox" {
+  name = "vnet-serviceA-to-vnet-jumpbox"
+  resource_group_name = azurerm_resource_group.rg-serviceA.name
+  virtual_network_name = azurerm_virtual_network.vnet-serviceA.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-jumpbox.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
+  depends_on = [azurerm_subnet.snet-serviceA,azurerm_subnet.snet-jumpbox]
+}
+
+# Peering from/to serviceB
+resource "azurerm_virtual_network_peering" "vnet-jumpbox-to-vnet-serviceB" {
+  name = "vnet-jumpbox-to-vnet-serviceB"
+  resource_group_name = "rg-jumpbox"
+  virtual_network_name = azurerm_virtual_network.vnet-jumpbox.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-serviceB.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
+  depends_on = [azurerm_subnet.snet-serviceB,azurerm_subnet.snet-jumpbox]
+}
+
+resource "azurerm_virtual_network_peering" "vnet-ServiceB-to-vnet-jumpbox" {
+  name = "vnet-serviceA-to-vnet-jumpbox"
+  resource_group_name = azurerm_resource_group.rg-serviceB.name
+  virtual_network_name = azurerm_virtual_network.vnet-serviceB.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-jumpbox.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
+  depends_on = [azurerm_subnet.snet-serviceB,azurerm_subnet.snet-jumpbox]
+}
