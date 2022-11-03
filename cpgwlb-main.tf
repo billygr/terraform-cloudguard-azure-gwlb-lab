@@ -8,7 +8,7 @@ resource "azurerm_marketplace_agreement" "gwlb-vmss-agreement" {
 
 # Create gwlb resource group
 resource "azurerm_resource_group" "rg-gwlb-vmss" {
-  name      = "rg-gwlb-vmss"
+  name      = "rg-${var.gwlb-name}"
   location  = var.resource_group_location
 }
 
@@ -156,4 +156,24 @@ resource "azurerm_resource_group_template_deployment" "template-deployment-gwlb"
     }
   }
   PARAMETERS 
+}
+
+# Peering from/to CP Management Hub to FrontEnd Azure GW Loadbalancer
+resource "azurerm_virtual_network_peering" "vnet-cpmgmt-to-vnet-lb-frontend" {
+  name = "vnet-cpmgmt-to-vnet-lb-frontend"
+  resource_group_name = "rg-cpmgmt"
+  virtual_network_name = azurerm_virtual_network.vnet-cpmgmt.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-lb-frontend.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
+}
+resource "azurerm_virtual_network_peering" "vnet-lb-frontend-to-vnet-cpmgmt" {
+  name = "vnet-lb-frontend-to-vnet-cpmgmt"
+  resource_group_name = "rg-lb-frontend"
+  virtual_network_name = azurerm_virtual_network.vnet-lb-frontend.name
+  remote_virtual_network_id = azurerm_virtual_network.vnet-cpmgmt.id
+  allow_virtual_network_access = true
+  allow_forwarded_traffic = true
+  allow_gateway_transit = false
 }
