@@ -1,13 +1,25 @@
 # terraform-cloudguard-azure-gwlb-lab
 
+## Prerequisites
+
+Edit terraform.tfvars and change the my-pub-ip to your external ip. 
+NSG rules are in place for ssh/https/cpmi of the cpmgmt it will not allow you to connect when the mgmt is up.
+
+A Pay As You Go (PAYG) subscription of Azure has a max vCPU quota per region of 10 vCPU so we needed to fit everything.
+
+You will need a service principal for the provision of the gateways
+
+## Notes
+MGMT with 2 vCPUs will take 15-18 minutes till you are able to login from SmartConsole (have that in mind)
+
 ## IP scheme
 
-serviceA VM: 10.0.1.4<br>
-serviceB VM: 10.0.2.4<br>
-cpmgmt   VM: 172.16.1.4<br>
-jumpbox  VM: 172.18.0.4<br>
-cpvmss1  VM: 192.168.0.5<br>
-cpvmss2  VM: 192.168.0.6<br>
+serviceA VM: 10.0.1.4 Standard_DS1_v2 1 vCPU <br>
+serviceB VM: 10.0.2.4 Standard_DS1_v2 1 vCPU<br>
+cpmgmt   VM: 172.16.1.4 Standard_D2_v2 2 vCPU<br>
+jumpbox  VM: 172.18.0.4 Standard_DS1_v2 1 vCPU<br>
+cpvmss1  VM: 192.168.0.5 Standard_DS1_v2 1 vCPU <br>
+cpvmss2  VM: 192.168.0.6 Standard_DS1_v2 1 vCPU<br>
 <br>
 ## vnet peerings
 from/to jumpbox serviceA<br>
