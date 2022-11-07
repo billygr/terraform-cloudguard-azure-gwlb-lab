@@ -9,8 +9,10 @@ A Pay As You Go (PAYG) subscription of Azure has a max vCPU quota per region of 
 
 You will need a service principal for the provision of the gateways
 
+I have left as an exersice how you will chain the serviceA/serviceB to the Azure GW Load Balancer in order to explain the process
+
 ## Notes
-MGMT with 2 vCPUs will take 15-18 minutes till you are able to login from SmartConsole (have that in mind)
+MGMT with 2 vCPUs will take 15-18 minutes till you are able to login from SmartConsole (have that in mind).
 
 ## IP scheme
 
