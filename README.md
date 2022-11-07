@@ -17,6 +17,9 @@ from/to jumpbox cpmgmt<br>
 from/to cpmgmt to vmms scaleset<br>
 
 ## Connectivity
+In case you forget the IP<br>
+
+terraform output public_ip_address-jumpbox<br>
 ssh -i azureuser.pem azureuser@jumpboxpublicip
 
 From jumpbox you can ping serviceA/serviceB/cpmgmt
@@ -30,7 +33,7 @@ If you are running a Standard D2 v2 (2 vcpus, 7 GiB memory) =<8GB of RAM you nee
 with bigger sizes it enables it automatically
 
 Install a license for 172.16.1.4<br>
-Install the CME script<br>
+Update the CME script, the defaults works in any case<br>
 
 ## Autoprovision of GWs
 ```
